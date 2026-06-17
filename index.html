@@ -1,1 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Age Slow Glow Method™ by Coylah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f9f6f4;
+  --card:#ffffff;
+  --charcoal:#1c1c1e;
+  --blush-pale:#f7efed;
+  --blush-light:#f2e8e5;
+  --blush-mid:#e8d0cb;
+  --blush:#c9948a;
+  --blush-dark:#a06b64;
+  --muted:#6b5c58;
+  --border:#e8d0cb;
+  --text:#1c1c1e;
+}
+body{font-family:'Jost',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;letter-spacing:-0.005em;}
+.screen{display:none;min-height:100vh;}
+.screen.active{display:block;}
+.prog-bar-wrap{position:fixed;top:0;left:0;right:0;height:3px;background:var(--blush-light);z-index:50;}
+.prog-bar-fill{height:3px;background:var(--blush-dark);transition:width 0.5s ease;}
+.welcome-wrap{max-width:680px;margin:0 auto;padding:80px 24px 60px;}
+.eyebrow{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--blush-dark);font-weight:500;}
+.eyebrow-line{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:40px;}
+.eyebrow-line span{display:inline-block;height:1px;width:28px;background:var(--blush-mid);}
+.welcome-title{font-size:clamp(40px,8vw,64px);line-height:1.02;text-align:center;margin-bottom:16px;}
+.welcome-title em{font-style:italic;color:var(--blush-dark);}
+.welcome-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--blush-dark);opacity:0.85;text-align:center;margin-bottom:24px;}
+.welcome-body{font-size:15px;line-height:1.75;color:var(--muted);text-align:center;max-width:480px;margin:0 auto 40px;}
+.welcome-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:16px;text-align:left;}
+.welcome-card h3{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--blush-dark);font-weight:500;margin-bottom:16px;}
+.welcome-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
+.welcome-dot{width:5px;height:5px;border-radius:50%;background:var(--blush-dark);margin-top:8px;flex-shrink:0;}
+.welcome-item p{font-size:14px;color:var(--muted);line-height:1.65;}
+.welcome-disclaimer{font-size:12px;color:var(--muted);line-height:1.7;font-style:italic;text-align:center;max-width:480px;margin:0 auto 32px;}
+.intro-wrap{max-width:480px;margin:0 auto;padding:96px 24px 60px;text-align:center;}
+.intro-title{font-size:clamp(36px,7vw,56px);line-height:1.05;margin-bottom:16px;}
+.intro-title em{font-style:italic;color:var(--blush-dark);}
+.intro-sub{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:40px;}
+.field-group{text-align:left;margin-bottom:24px;}
+.field-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;}
+.field-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-size:20px;font-family:'Cormorant Garamond',serif;color:var(--text);outline:none;transition:border-color 0.2s;}
+.field-input:focus{border-color:var(--blush-dark);}
+.field-input::placeholder{color:var(--blush-mid);}
+.btn-primary{background:var(--charcoal);color:var(--bg);padding:16px 40px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--blush-dark);}
+.btn-primary:disabled{opacity:0.3;cursor:not-allowed;}
+.btn-primary.full{width:100%;}
+.btn-back-link{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:color 0.2s;padding:0;}
+.btn-back-link:hover{color:var(--blush-dark);}
+.btn-back-link:disabled{opacity:0.3;}
+.intro-note{font-size:11px;color:var(--muted);font-style:italic;margin-top:16px;}
+.q-wrap{max-width:560px;margin:0 auto;padding:96px 24px 60px;}
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;}
+.q-section{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+.q-counter{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+.q-text{font-size:clamp(24px,4vw,36px);line-height:1.15;margin-bottom:8px;}
+.q-hint{font-size:13px;color:var(--blush-dark);font-style:italic;margin-bottom:32px;}
+.opts-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.opt-btn{width:100%;text-align:left;padding:16px 20px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-size:15px;font-family:'Jost',sans-serif;color:var(--text);transition:all 0.15s;line-height:1.4;display:flex;align-items:center;gap:14px;}
+.opt-btn:hover{border-color:var(--blush);}
+.opt-btn.selected{background:var(--blush-pale);border-color:var(--blush-dark);}
+.opt-btn.other-opt{font-style:italic;}
+.opt-checkbox{width:16px;height:16px;border:1px solid var(--blush-mid);border-radius:3px;flex-shrink:0;transition:all 0.15s;}
+.opt-btn.selected .opt-checkbox{background:var(--blush-dark);border-color:var(--blush-dark);}
+.opt-radio{width:16px;height:16px;border:1px solid var(--blush-mid);border-radius:50%;flex-shrink:0;transition:all 0.15s;display:flex;align-items:center;justify-content:center;}
+.opt-btn.selected .opt-radio{border-color:var(--blush-dark);}
+.opt-btn.selected .opt-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--blush-dark);}
+.other-textarea{width:100%;background:var(--card);border:1px solid var(--blush);border-radius:10px;padding:14px 16px;font-size:15px;font-family:'Jost',sans-serif;color:var(--text);outline:none;resize:vertical;min-height:96px;transition:border-color 0.2s;margin-top:4px;}
+.other-textarea:focus{border-color:var(--blush-dark);}
+.other-textarea::placeholder{color:var(--blush-mid);}
+.q-nav{display:flex;align-items:center;justify-content:space-between;}
+.email-wrap{max-width:480px;margin:0 auto;padding:96px 24px 60px;text-align:center;}
+.email-input{width:100%;max-width:320px;background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-size:20px;font-family:'Cormorant Garamond',serif;text-align:center;color:var(--text);outline:none;transition:border-color 0.2s;display:block;margin:0 auto 32px;}
+.email-input:focus{border-color:var(--blush-dark);}
+.email-input::placeholder{color:var(--blush-mid);}
+.loading-wrap{max-width:480px;margin:0 auto;padding:120px 24px 60px;text-align:center;}
+.loading-spinner{width:48px;height:48px;border:2px solid var(--blush-mid);border-top-color:var(--blush-dark);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 40px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-msg{font-size:14px;color:var(--muted);font-style:italic;min-height:1.5em;transition:opacity 0.4s;}
+.results-hero{background:var(--charcoal);color:var(--bg);padding:80px 24px 60px;text-align:center;}
+.results-hero-eyebrow{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--blush);margin-bottom:16px;}
+.results-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,48px);font-weight:300;line-height:1.05;color:var(--bg);margin-bottom:8px;}
+.results-hero h1 em{font-style:italic;color:var(--blush);}
+.results-hero p{font-size:13px;color:var(--blush);opacity:0.7;}
+.results-body{max-width:680px;margin:0 auto;padding:48px 24px 80px;}
+.quick-win{background:var(--blush-pale);border:1px solid var(--blush-mid);border-left:2px solid var(--blush-dark);border-radius:0 12px 12px 0;padding:24px 28px;margin-bottom:12px;}
+.quick-win-label{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blush-dark);margin-bottom:8px;font-weight:500;}
+.quick-win-body{font-size:14px;line-height:1.8;color:var(--text);}
+.acc{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:8px;}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.15s;}
+.acc-head:hover{background:var(--blush-pale);}
+.acc-title{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--blush-dark);font-weight:500;}
+.acc-icon{font-size:18px;color:var(--blush-dark);line-height:1;}
+.acc-body{display:none;padding:16px 20px 20px;border-top:1px solid var(--blush-light);}
+.acc-body.open{display:block;}
+.acc-body p{font-size:14px;line-height:1.8;color:var(--text);margin-bottom:10px;}
+.acc-body p:last-child{margin-bottom:0;}
+.section-divider{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blush-dark);font-weight:500;margin:32px 0 12px;}
+.pill-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.pill{background:var(--blush-pale);border:1px solid var(--blush-mid);border-radius:8px;padding:10px 14px;min-width:130px;flex:1;}
+.pill-name{font-size:12px;font-weight:500;color:var(--blush-dark);margin-bottom:2px;}
+.pill-why{font-size:11px;color:var(--muted);line-height:1.45;}
+.priority-card{background:var(--card);border:1px solid var(--border);border-left:2px solid var(--blush-dark);border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:8px;}
+.priority-num{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--blush-dark);margin-bottom:4px;}
+.priority-name{font-size:15px;font-weight:500;color:var(--charcoal);margin-bottom:4px;}
+.priority-detail{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:6px;}
+.food-tag{display:inline-block;background:var(--blush-pale);border:1px solid var(--blush-mid);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--blush-dark);margin:2px 2px 0 0;}
+.handover{background:var(--charcoal);border-radius:16px;padding:44px 32px;margin-top:32px;text-align:center;}
+.handover-tag{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--blush);margin-bottom:16px;}
+.handover-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--bg);margin-bottom:10px;line-height:1.2;}
+.handover-sub{font-size:13px;color:var(--blush);opacity:0.6;line-height:1.8;margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto;}
+.handover-btn{background:var(--blush-dark);color:var(--bg);padding:16px 36px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;font-family:'Jost',sans-serif;width:100%;margin-bottom:8px;transition:background 0.2s;}
+.handover-btn:hover{background:var(--blush);}
+.handover-note{font-size:11px;color:var(--blush);opacity:0.4;line-height:1.6;}
+.print-btn{display:block;width:100%;padding:13px;background:transparent;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:'Jost',sans-serif;cursor:pointer;color:var(--muted);margin-top:12px;}
+.print-btn:hover{border-color:var(--blush-dark);}
+@media print{.handover,.print-btn,.prog-bar-wrap{display:none!important;}.acc-body{display:block!important;}}
+</style>
+</head>
+<body>
 
+<div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
+
+<!-- WELCOME -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-wrap">
+    <div class="eyebrow-line">
+      <span></span>
+      <span class="eyebrow">A complete skin &amp; collagen consultation</span>
+      <span></span>
+    </div>
+    <h1 class="welcome-title">The Age Slow<br/><em>Glow Method™</em></h1>
+    <p class="welcome-sub">by Coylah</p>
+    <p class="welcome-body">One audit. Your skin, your food, your routine, your lifestyle — all of it, finally joined up into one personalised plan.</p>
+    <div class="welcome-card">
+      <h3>What this covers</h3>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Your skin — what's happening, what's causing it, what to change first</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Your skincare routine — personalised AM and PM steps, hero ingredients, what to ditch</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Your collagen food plan — what to eat, what's missing, how to fill the gaps</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Your lifestyle — sleep, stress, hormones — and how they're showing up on your skin</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Your next steps — three clear actions, in order, starting today</p></div>
+    </div>
+    <div class="welcome-card">
+      <h3>Before you begin</h3>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Set aside <strong>15–20 minutes</strong> and do this properly. The more honest you are, the more useful your results.</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>No right or wrong answers. No judgement here — just clarity.</p></div>
+      <div class="welcome-item"><div class="welcome-dot"></div><p>Where you see an "other" box — please use it. The more you share, the more personal your plan.</p></div>
+    </div>
+    <p class="welcome-disclaimer">Coylah is not a doctor, dermatologist, or registered nutritionist. The Age Slow Glow Method™ is based on ten years of personal experience and published science around skin health and collagen-supporting nutrition. If you have a diagnosed skin condition, eating disorder, or complex medical needs, please speak to your GP before making changes.</p>
+    <button class="btn-primary full" onclick="startIntro()">Begin my consultation →</button>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="screen" id="screen-intro">
+  <div class="intro-wrap">
+    <div class="eyebrow-line">
+      <span></span>
+      <span class="eyebrow">The Age Slow Glow Method™</span>
+      <span></span>
+    </div>
+    <h1 class="intro-title">Let's start with <em>you</em>.</h1>
+    <p class="intro-sub">10 sections. Your most personalised skin and collagen plan yet. You'll get your Glow Score, your personalised routine, your collagen food priorities, and a clear path forward.</p>
+    <div class="field-group">
+      <label class="field-label">Your first name</label>
+      <input class="field-input" type="text" id="input-name" placeholder="e.g. Sarah" oninput="checkIntro()">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Age (optional)</label>
+      <input class="field-input" type="text" id="input-age" placeholder="e.g. 47">
+    </div>
+    <button class="btn-primary full" id="btn-begin" onclick="startAudit()" disabled>Begin My Consultation</button>
+    <p class="intro-note">Your answers stay private. We'll only ask for your email at the end.</p>
+  </div>
+</div>
+
+<!-- QUESTIONS -->
+<div class="screen" id="screen-questions">
+  <div class="q-wrap" id="q-content"></div>
+</div>
+
+<!-- EMAIL -->
+<div class="screen" id="screen-email">
+  <div class="email-wrap">
+    <p class="eyebrow" style="margin-bottom:32px;">Almost there</p>
+    <h2 style="font-size:clamp(30px,5vw,44px);line-height:1.05;margin-bottom:14px;">Where should we send your <em style="font-style:italic;color:var(--blush-dark);">results</em>?</h2>
+    <p style="font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:36px;">We'll show your full results on the next screen and save them to your email so you can revisit them any time.</p>
+    <input class="email-input" type="email" id="input-email" placeholder="you@example.com" oninput="checkEmail()">
+    <div id="email-err" style="font-size:13px;color:#a32d2d;margin-bottom:12px;display:none;"></div>
+    <button class="btn-primary full" id="btn-submit" onclick="submitAudit()" disabled>Reveal My Glow Score →</button>
+    <p class="intro-note">No spam. Ever. Your audit, your data.</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="screen" id="screen-loading">
+  <div class="loading-wrap">
+    <div class="loading-spinner"></div>
+    <h2 style="font-size:clamp(28px,4vw,38px);margin-bottom:14px;">Building your <em style="font-style:italic;color:var(--blush-dark);">personalised results…</em></h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">This takes a couple of minutes — I'm working through everything. Please don't refresh or navigate away.</p>
+    <p class="loading-msg" id="load-msg">Reading your answers…</p>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="screen-results">
+  <div class="results-hero">
+    <div class="results-hero-eyebrow">The Age Slow Glow Method™</div>
+    <h1 id="res-heading">Your personalised <em>glow results</em></h1>
+    <p>Skin · Routine · Food · Lifestyle — all joined up, just for you.</p>
+  </div>
+  <div class="results-body">
+    <div id="res-content"></div>
+    <button class="print-btn" id="print-btn" style="display:none;" onclick="window.print()">Save or print your results</button>
+  </div>
+</div>
+
+<script>
+const A={};
+let curQ=0;
+let userName='';
+
+const LOAD_MSGS=[
+  "Reading your answers, my lovely…",
+  "Your skin story is taking shape…",
+  "Working through your routine…",
+  "Checking your collagen gaps…",
+  "Scoring your glow across all areas…",
+  "Looking at your lifestyle picture…",
+  "Building your personalised routine…",
+  "Putting your food priorities together…",
+  "Joining all the dots…",
+  "Nearly there, my lovely…"
+];
+
+const SECTIONS=[
+{id:'skin_now',name:'Skin Foundations',num:'01 of 10',
+  qs:[
+    {id:'mirror',t:'When you look in the mirror right now — what do you see that you most want to change?',textarea:true,placeholder:'Tell me what you see. The more honest, the better.'},
+    {id:'skin_concerns',t:'Which of these are you dealing with right now?',multi:true,hint:'Select all that apply',
+      opts:['Dullness — I\'ve lost my glow','Fine lines','Deeper lines and wrinkles','Loss of firmness','Dry or dehydrated skin','Oiliness or congestion','Breakouts','Pigmentation or uneven tone','Redness or sensitivity','Puffiness','Dark circles','Slow healing']},
+    {id:'skin_type',t:'How would you describe your skin type?',
+      opts:['Dry — tight, flaky, uncomfortable','Normal — balanced, no major issues','Combination — oily T-zone, drier elsewhere','Oily — shiny, prone to congestion','Sensitive — reacts easily','I genuinely don\'t know']},
+    {id:'skin_feels',t:'How does your skin feel by midday?',
+      opts:['Still comfortable and balanced','A bit oily or shiny','Tight or dry','Dull and flat','Sensitive or irritated']},
+    {id:'skin_how_long',t:'How long have you been dealing with your main skin concerns?',
+      opts:['Under 6 months — fairly new','About a year','A few years','As long as I can remember']},
+  ]
+},
+{id:'routine',name:'Your Routine',num:'02 of 10',
+  qs:[
+    {id:'has_routine',t:'Do you have a skincare routine?',
+      opts:['Yes — morning and evening','Morning only or evening only','Sort of — it\'s inconsistent','I keep it very minimal','No routine at all']},
+    {id:'routine_am',t:'What does your morning routine look like right now?',textarea:true,hint:'Be as specific as you can — products, steps, order',placeholder:'e.g. Cerave cleanser, Vitamin C serum, SPF 50…'},
+    {id:'routine_pm',t:'And your evening routine?',textarea:true,placeholder:'e.g. Oil cleanser, retinol, moisturiser…'},
+    {id:'spf',t:'Do you wear SPF daily?',
+      opts:['Yes — SPF 50, every day without fail','Yes — but not always SPF 50','Sometimes — depends on the weather','Rarely or never']},
+    {id:'retinoid',t:'Do you use a retinoid (retinol, tretinoin, retinal)?',
+      opts:['Yes — regularly in my evening routine','Yes — occasionally','I\'ve tried it but had a reaction','No — never used one','Not sure what this is']},
+    {id:'routine_time',t:'How much time do you have for your skincare routine?',
+      opts:['Under 5 minutes — keep it quick','5–10 minutes','10–15 minutes','As long as it takes — I love it']},
+    {id:'routine_budget',t:'What\'s your monthly budget for skincare?',
+      opts:['Under £30','£30–£60','£60–£100','Over £100']},
+    {id:'skin_tried',t:'What have you already tried for your skin concerns that hasn\'t worked?',textarea:true,hint:'Optional — this saves us going over old ground',placeholder:'e.g. tried retinol but too harsh, vitamin C but saw no difference…'},
+  ]
+},
+{id:'ingredients',name:'Ingredients & Sensitivities',num:'03 of 10',
+  qs:[
+    {id:'actives_using',t:'Which active ingredients are you currently using?',multi:true,hint:'Select all that apply',
+      opts:['Vitamin C','Retinol or retinoid','Niacinamide','AHA (glycolic or lactic acid)','BHA (salicylic acid)','Hyaluronic acid','Peptides','Bakuchiol','SPF','None of the above']},
+    {id:'sensitivities',t:'Do you have any known skin sensitivities or reactions?',multi:true,hint:'Select all that apply',
+      opts:['Fragrance','Essential oils','Alcohol in products','AHAs or BHAs','Retinoids','No known sensitivities']},
+    {id:'routine_goals',t:'What do you most want from your skincare routine?',multi:true,hint:'Select up to 3',max:3,
+      opts:['A simpler routine that actually works','To sort my SPF habit properly','To introduce a retinoid the right way','Brighter, more even skin','More firmness and bounce','Better hydration','To clear congestion','To reduce redness']},
+  ]
+},
+{id:'food_picture',name:'Your Food Picture',num:'04 of 10',
+  qs:[
+    {id:'diet_type',t:'How would you describe how you eat?',multi:true,hint:'Select all that apply',
+      opts:['I eat everything — meat, fish, dairy','Mostly plant-based but some meat','Pescatarian — fish but no meat','Dairy-free','Gluten-free']},
+    {id:'cooking_freq',t:'How often do you cook from scratch?',
+      opts:['Most days','A few times a week','Occasionally — mostly convenience food','Rarely — I don\'t really cook']},
+    {id:'protein_freq',t:'How many meals a day include a good protein source?',
+      opts:['None or very little','One','Two','Three or more']},
+    {id:'protein_sources',t:'Which protein sources do you eat regularly?',multi:true,hint:'Select all that apply',
+      opts:['Chicken or turkey','Beef or lamb','Oily fish (salmon, mackerel, sardines)','White fish','Eggs','Greek yoghurt or cottage cheese','Lentils or legumes','Tofu or tempeh','None of the above']},
+    {id:'food_honest',t:'Is there anything about your diet you already know isn\'t great for your skin?',textarea:true,hint:'Optional — be honest, no judgement',placeholder:'e.g. I eat too much sugar, I barely drink water…'},
+  ]
+},
+{id:'collagen_foods',name:'Collagen Foundations',num:'05 of 10',
+  qs:[
+    {id:'vit_c_foods',t:'Which vitamin C rich foods do you eat regularly?',multi:true,hint:'Vitamin C is essential for collagen synthesis',
+      opts:['Red or yellow peppers','Citrus fruits','Kiwi','Strawberries','Broccoli','Tomatoes','Mango or papaya','None of the above']},
+    {id:'vit_c_freq',t:'How often do you eat vitamin C rich foods?',
+      opts:['At least twice daily','Once daily','A few times a week','Rarely or never']},
+    {id:'omega3_freq',t:'How often do you eat oily fish — salmon, mackerel, sardines?',
+      opts:['Twice a week or more','Once a week','Once or twice a month','Rarely or never','I\'m vegetarian or vegan']},
+    {id:'antioxidants',t:'Which of these do you eat regularly?',multi:true,hint:'Antioxidants protect existing collagen from breakdown',
+      opts:['Berries (blueberries, raspberries, blackberries)','Dark leafy greens (spinach, kale)','Green tea','Turmeric','Dark chocolate (70%+)','Extra virgin olive oil','None of the above']},
+    {id:'bone_broth',t:'Do you drink bone broth or use it in cooking?',
+      opts:['Yes — regularly','Occasionally','No','Not applicable — vegetarian or vegan']},
+  ]
+},
+{id:'sugar_hydration',name:'Sugar & Hydration',num:'06 of 10',
+  qs:[
+    {id:'sugar_intake',t:'How would you honestly describe your sugar intake?',
+      opts:['Low — I avoid most added sugars','Moderate — I\'m mindful but have treats','Quite high — sweet food most days','High — it\'s a real daily habit']},
+    {id:'refined_carbs',t:'How often do you eat refined carbohydrates?',hint:'White bread, white pasta, white rice, most crackers and biscuits',
+      opts:['Rarely — I mostly eat wholegrains','Occasionally','A few times a week','Most meals include them']},
+    {id:'water_daily',t:'How much water do you drink daily?',
+      opts:['Less than 1 litre','Around 1–1.5 litres','Around 2 litres','More than 2 litres']},
+    {id:'caffeine',t:'How many caffeinated drinks do you have daily?',
+      opts:['None','1–2','3–4','5 or more']},
+    {id:'alcohol_freq',t:'How often do you drink alcohol?',
+      opts:['Never','Occasionally — a few times a month','1–2 times a week','Most days']},
+  ]
+},
+{id:'lifestyle',name:'Your Lifestyle',num:'07 of 10',
+  qs:[
+    {id:'sleep',t:'How is your sleep?',
+      opts:['I regularly get 7–8 hours and feel rested','I usually get enough but it varies','Disrupted — I rarely get a full night','Poor — sleep is a real issue for me']},
+    {id:'stress',t:'Current stress levels?',
+      opts:['Low — I feel calm most of the time','Moderate — manageable','High — it\'s noticeable','Very high — affecting daily life']},
+    {id:'stress_eating',t:'Does stress affect how you eat?',
+      opts:['No — I eat the same regardless','I tend to eat more when stressed','I tend to eat less when stressed','I reach for sugar or comfort food when stressed']},
+    {id:'exercise',t:'How often do you exercise?',
+      opts:['Daily or most days','A few times a week','Occasionally','Rarely or never']},
+    {id:'energy',t:'How are your energy levels day to day?',
+      opts:['Good — consistent energy throughout','Variable — some good days, some crashes','Low — I feel tired most of the time','Very low — fatigue is a real issue']},
+  ]
+},
+{id:'supplements',name:'Supplements',num:'08 of 10',
+  qs:[
+    {id:'takes_supps',t:'Do you take any supplements?',opts:['Yes','No']},
+    {id:'supp_list',t:'Which do you take?',multi:true,hint:'Select all that apply',
+      opts:['Collagen powder or peptides','Vitamin C','Vitamin D','Omega-3 / fish oil','Magnesium','B vitamins','Iron','Zinc','Biotin','Probiotics','Multivitamin']},
+    {id:'supp_honest',t:'Honestly — do you notice any difference from what you take?',
+      opts:['Yes — definitely','I think so but it\'s hard to tell','Not really','I\'ve only just started']},
+  ]
+},
+{id:'hormones_gut',name:'Hormones & Gut',num:'09 of 10',
+  qs:[
+    {id:'meno',t:'Which best describes you?',
+      opts:['Not applicable — pre-menopause','Perimenopause suspected or confirmed','Confirmed menopause','Post-menopause']},
+    {id:'meno_symptoms',t:'Are you experiencing any of these?',multi:true,hint:'Select all that apply',
+      opts:['Hot flushes','Disrupted sleep','Mood changes','Changes in appetite or weight','Dry skin','Hair changes','None of the above']},
+    {id:'digestion',t:'How would you describe your digestion?',
+      opts:['Good — no issues','Variable — depends on what I eat','I often feel bloated or uncomfortable','I have diagnosed gut issues']},
+    {id:'gut_note',t:'Anything about your gut health worth mentioning?',textarea:true,hint:'Optional — if diagnosed please also speak to your GP',placeholder:'In your own words…'},
+  ]
+},
+{id:'finish',name:'Final Thoughts',num:'10 of 10',
+  qs:[
+    {id:'final_note',t:'Is there anything else you\'d like me to know before I build your results?',textarea:true,hint:'Optional — anything at all. The more you share, the more personal your plan.',placeholder:'History, things you\'ve tried, how you feel about all this…'},
+    {id:'biggest_want',t:'If you could change one thing about your skin in the next 90 days — what would it be?',
+      opts:['More glow and radiance','Firmer, bouncier skin','Clearer, more even skin','Less dryness','Smaller pores and fewer breakouts']},
+  ]
+},
+];
+
+const FLAT_QS=[];
+SECTIONS.forEach(sec=>{
+  sec.qs.forEach((q,qi)=>{
+    FLAT_QS.push({...q,secId:sec.id,secName:sec.name,secNum:sec.num,secQi:qi,totalInSec:sec.qs.length});
+  });
+});
+
+function go(from,to){
+  document.getElementById('screen-'+from).classList.remove('active');
+  document.getElementById('screen-'+to).classList.add('active');
+  window.scrollTo(0,0);
+  updateProg();
+}
+function updateProg(){
+  const pct=FLAT_QS.length?Math.round((curQ/FLAT_QS.length)*85):0;
+  document.getElementById('prog-fill').style.width=pct+'%';
+}
+function startIntro(){go('welcome','intro');}
+function checkIntro(){
+  const v=document.getElementById('input-name').value.trim();
+  document.getElementById('btn-begin').disabled=!v;
+}
+function startAudit(){
+  userName=document.getElementById('input-name').value.trim();
+  A['_name']=userName;
+  A['_age']=document.getElementById('input-age').value.trim();
+  curQ=0;
+  go('intro','questions');
+  renderQ();
+}
+function checkEmail(){
+  const v=document.getElementById('input-email').value.trim();
+  const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  document.getElementById('btn-submit').disabled=!ok;
+}
+
+function renderQ(){
+  const fq=FLAT_QS[curQ];
+  if(!fq){go('questions','email');return;}
+  const isFirst=curQ===0;
+  const q=fq;
+  const sel=A[q.id];
+  let html=`<div class="q-header"><span class="q-section">${q.secNum} · ${q.secName}</span><span class="q-counter">${curQ+1} / ${FLAT_QS.length}</span></div>`;
+  html+=`<h2 class="q-text">${q.t}</h2>`;
+  if(q.hint)html+=`<p class="q-hint">${q.hint}</p>`;
+
+  if(q.textarea){
+    html+=`<div class="opts-list"><textarea class="other-textarea" id="ta-${q.id}" placeholder="${q.placeholder||''}" oninput="saText('${q.id}',this.value)">${A[q.id]||''}</textarea></div>`;
+  }else if(q.multi){
+    const selArr=A[q.id]||[];
+    html+=`<div class="opts-list">`;
+    q.opts.forEach(opt=>{
+      const checked=selArr.includes(opt);
+      html+=`<button class="opt-btn${checked?' selected':''}" onclick="togMulti('${q.id}','${esc(opt)}',this,${q.max||99})"><span class="opt-checkbox"></span><span>${opt}</span></button>`;
+    });
+    html+=`<button class="opt-btn other-opt" id="other-btn-${q.id}" onclick="togOther('${q.id}',this)"><span class="opt-checkbox" id="other-cb-${q.id}"></span><span>Other (describe in your own words)</span></button>
+    <textarea class="other-textarea" id="other-ta-${q.id}" placeholder="Tell Coylah in your own words…" style="display:${A['_other_'+q.id]?'block':'none'}" oninput="saOther('${q.id}',this.value)">${A['_other_'+q.id]||''}</textarea>`;
+    html+=`</div>`;
+  }else{
+    html+=`<div class="opts-list">`;
+    q.opts.forEach(opt=>{
+      const checked=A[q.id]===opt;
+      html+=`<button class="opt-btn${checked?' selected':''}" onclick="pick('${q.id}','${esc(opt)}',this)"><span class="opt-radio"></span><span>${opt}</span></button>`;
+    });
+    html+=`<button class="opt-btn other-opt${A[q.id]==='__other__'?' selected':''}" onclick="pickOther('${q.id}',this)"><span class="opt-radio"></span><span>Other (describe in your own words)</span></button>
+    <textarea class="other-textarea" id="other-ta-${q.id}" placeholder="Tell Coylah in your own words…" style="display:${A[q.id]==='__other__'?'block':'none'}" oninput="saOther('${q.id}',this.value)">${A['_other_'+q.id]||''}</textarea>`;
+    html+=`</div>`;
+  }
+
+  html+=`<div class="q-nav"><button class="btn-back-link" onclick="prevQ()" ${isFirst?'disabled':''}>← Back</button><button class="btn-primary" onclick="nextQ()">Continue</button></div>`;
+  document.getElementById('q-content').innerHTML=html;
+  updateProg();
+  if(q.textarea)document.querySelector('#q-content textarea')?.focus();
+}
+
+function esc(s){return s.replace(/'/g,"\\'");}
+function saText(id,v){A[id]=v;}
+function saOther(id,v){A['_other_'+id]=v;}
+function pick(id,v,el){
+  A[id]=v;
+  document.querySelectorAll('#q-content .opt-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  const ta=document.getElementById('other-ta-'+id);
+  if(ta)ta.style.display='none';
+}
+function pickOther(id,el){
+  A[id]='__other__';
+  document.querySelectorAll('#q-content .opt-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  const ta=document.getElementById('other-ta-'+id);
+  if(ta){ta.style.display='block';ta.focus();}
+}
+function togMulti(id,v,el,max){
+  let arr=A[id]||[];
+  if(arr.includes(v)){arr=arr.filter(x=>x!==v);el.classList.remove('selected');}
+  else if(arr.length<max){arr.push(v);el.classList.add('selected');}
+  A[id]=arr;
+}
+function togOther(id,el){
+  const ta=document.getElementById('other-ta-'+id);
+  const isOn=ta.style.display==='block';
+  ta.style.display=isOn?'none':'block';
+  el.classList.toggle('selected',!isOn);
+  if(!isOn)ta.focus();
+  if(isOn)delete A['_other_'+id];
+}
+function prevQ(){if(curQ>0){curQ--;renderQ();window.scrollTo(0,0);}}
+function nextQ(){curQ++;if(curQ>=FLAT_QS.length){go('questions','email');}else{renderQ();window.scrollTo(0,0);}}
+
+async function submitAudit(){
+  A['_email']=document.getElementById('input-email').value.trim();
+  go('email','loading');
+  document.getElementById('prog-fill').style.width='95%';
+  startLoadMsgs();
+  await generateResults();
+}
+
+let loadInt;
+function startLoadMsgs(){
+  let i=0;const el=document.getElementById('load-msg');
+  el.textContent=LOAD_MSGS[0];
+  loadInt=setInterval(()=>{
+    i=(i+1)%LOAD_MSGS.length;
+    el.style.opacity='0';
+    setTimeout(()=>{el.textContent=LOAD_MSGS[i];el.style.opacity='1';},400);
+  },2800);
+}
+
+function buildPrompt(){
+  const f=v=>{if(!v)return'Not provided';if(Array.isArray(v))return v.length?v.join(', '):'None';return v;};
+  const a=A;
+  const o=id=>a['_other_'+id]?` (other: ${a['_other_'+id]})`:'';
+  return`Write the full Age Slow Glow Method™ results for ${a._name||'my client'}, aged ${a._age||'not given'}.
+
+SKIN: Mirror: ${a.mirror||'not provided'} | Concerns: ${f(a.skin_concerns)}${o('skin_concerns')} | Type: ${f(a.skin_type)} | Midday: ${f(a.skin_feels)} | How long: ${f(a.skin_how_long)}
+ROUTINE: Has: ${f(a.has_routine)} | AM: ${a.routine_am||'not provided'} | PM: ${a.routine_pm||'not provided'} | SPF: ${f(a.spf)} | Retinoid: ${f(a.retinoid)} | Time: ${f(a.routine_time)} | Budget: ${f(a.routine_budget)} | Tried: ${a.skin_tried||'not provided'}
+INGREDIENTS: Using: ${f(a.actives_using)} | Sensitivities: ${f(a.sensitivities)} | Goals: ${f(a.routine_goals)}${o('routine_goals')}
+FOOD: Diet: ${f(a.diet_type)} | Cooking: ${f(a.cooking_freq)} | Protein/day: ${f(a.protein_freq)} | Sources: ${f(a.protein_sources)} | Honest: ${a.food_honest||'not provided'}
+COLLAGEN: Vit C foods: ${f(a.vit_c_foods)} | Freq: ${f(a.vit_c_freq)} | Oily fish: ${f(a.omega3_freq)} | Antioxidants: ${f(a.antioxidants)} | Bone broth: ${f(a.bone_broth)}
+SUGAR/HYDRATION: Sugar: ${f(a.sugar_intake)} | Carbs: ${f(a.refined_carbs)} | Water: ${f(a.water_daily)} | Caffeine: ${f(a.caffeine)} | Alcohol: ${f(a.alcohol_freq)}
+LIFESTYLE: Sleep: ${f(a.sleep)} | Stress: ${f(a.stress)} | Stress eating: ${f(a.stress_eating)} | Exercise: ${f(a.exercise)} | Energy: ${f(a.energy)}
+SUPPLEMENTS: Takes: ${f(a.takes_supps)} | List: ${f(a.supp_list)} | Works: ${f(a.supp_honest)}
+HORMONES/GUT: Meno: ${f(a.meno)} | Symptoms: ${f(a.meno_symptoms)} | Digestion: ${f(a.digestion)} | Gut: ${a.gut_note||'none'}
+FINAL: Notes: ${a.final_note||'none'} | Biggest want: ${f(a.biggest_want)}
+
+RESULTS ORDER:
+1. YOUR QUICK WIN
+2. MY OVERALL ASSESSMENT (open "My lovely" — close "Now let's get you glowing, my lovely. Love, Coylah x")
+3. YOUR GLOW SCORE BREAKDOWN
+4. YOUR SKIN PICTURE
+5. YOUR PERSONALISED ROUTINE (AM then PM — specific steps, product types. Never brand names. SPF always 50. Retinoids evening only)
+6. YOUR HERO INGREDIENTS (INGREDIENT: [name] | [why for her])
+7. YOUR COLLAGEN FOOD PRIORITIES (Priority N — [Name] / explanation / Foods to focus on: [list])
+8. YOUR HERO FOODS (HERO_FOOD: [name] | [warm reason])
+9. YOUR LIFESTYLE FLAGS (relevant only — warm, never scary)
+10. YOUR SUPPLEMENTS PICTURE (food first always)
+11. YOUR NEXT STEPS (exactly 3, numbered, most impactful first)
+12. YOUR ASK COYLAH HANDOVER
+
+RULES: Clean plain text only. No asterisks or markdown. Short paragraphs. Never diagnose. Never brand names. Never retinoids in AM. SPF always 50. Alcohol once warmly. HRT refer to doctor only. Ageing is a gift.`;
+}
+
+async function generateResults(){
+  const name=A['_name']||'there';
+  document.getElementById('res-heading').innerHTML=`${name}'s personalised <em>glow results</em>`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:5000,
+        system:`You are Coylah — warm, experienced, slightly cheeky skin and collagen specialist. Ten years hands-on experience. Write directly to your client by name. Warm, personal, direct, occasionally funny. Knowledgeable best friend who knows everything about skin and food.
+
+Not a doctor, dermatologist, or nutritionist. Never diagnose. Never claim clinical authority. Never recommend specific brands.
+
+Open with "My lovely." Close Overall Assessment with "Now let's get you glowing, my lovely. Love, Coylah x"
+
+Clean plain text only. No asterisks, hashtags, markdown. Short paragraphs. Personal.`,
+        messages:[{role:'user',content:buildPrompt()}]
+      })
+    });
+    clearInterval(loadInt);
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const text=data.content.map(c=>c.text||'').join('');
+    document.getElementById('prog-fill').style.width='100%';
+    go('loading','results');
+    renderResults(text,name);
+  }catch(e){
+    clearInterval(loadInt);
+    document.getElementById('prog-fill').style.width='100%';
+    go('loading','results');
+    const mockText=`1. YOUR QUICK WIN
+
+My lovely, the single most impactful thing you can do today is add vitamin C to your morning routine — either as a serum or by eating a kiwi or red pepper with breakfast. Vitamin C is the spark plug for collagen synthesis. Without it, everything else slows down.
+
+2. MY OVERALL ASSESSMENT
+
+My lovely, thank you for being so honest — it makes everything I'm about to tell you so much more useful. From what you've shared, your skin is doing its best with what it's been given. But there are some clear gaps — in your routine, in your food, and in a couple of lifestyle areas — that once filled, will make a visible difference.
+
+The good news is that most of what's holding your glow back is fixable. Not with expensive products or complicated protocols. With clarity, consistency, and the right foundations. That's exactly what this plan gives you.
+
+Now let's get you glowing, my lovely. Love, Coylah x
+
+3. YOUR GLOW SCORE BREAKDOWN
+
+Your skin foundations have real room to grow — particularly around SPF consistency and active ingredients. Your collagen food picture is the area with the most opportunity. Your lifestyle shows some stress and sleep patterns quietly affecting your skin more than you might realise.
+
+The wins are real though. You're here, paying attention, and ready to make changes. That already puts you ahead.
+
+4. YOUR SKIN PICTURE
+
+Your skin is telling a story — and it's one I recognise. The dullness and loss of firmness you're noticing are classic signs that your collagen production needs support from both inside and outside. Nothing dramatic, nothing unfixable.
+
+The sensitivity and dryness are likely a barrier issue. Your skin's protective layer needs strengthening — this affects how well your products work and how your skin holds hydration.
+
+5. YOUR PERSONALISED ROUTINE
+
+Morning — start with a gentle, non-stripping cleanser. Follow with a vitamin C serum, look for L-ascorbic acid or ascorbyl glucoside at around 10–15%. A lightweight moisturiser with ceramides or hyaluronic acid. Finish with SPF 50 — every single day.
+
+Evening — double cleanse if you wear SPF or makeup. On alternate nights, introduce a retinoid — start low and slow, once or twice a week. On other nights, a peptide or niacinamide serum followed by a richer moisturiser.
+
+6. YOUR HERO INGREDIENTS
+
+INGREDIENT: Vitamin C | Your collagen synthesis is waiting for this — pair it with protein-rich meals for best effect
+INGREDIENT: Retinol | Introduced slowly in the evening, this will be your single biggest skin investment
+INGREDIENT: Ceramides | Your barrier needs rebuilding — look for these in your moisturiser
+INGREDIENT: Niacinamide | Brightening, barrier-supporting and brilliantly affordable
+INGREDIENT: Peptides | Signal your skin to produce more collagen — perfect for your firmness goals
+
+7. YOUR COLLAGEN FOOD PRIORITIES
+
+Priority 1 — Protein at Every Meal
+Your collagen is literally made from protein. Without enough, your skin cannot rebuild. Aim for a palm-sized portion at every meal.
+Foods to focus on: chicken, salmon, eggs, Greek yoghurt, lentils
+
+Priority 2 — Vitamin C Rich Foods Daily
+Vitamin C activates the enzymes that build collagen. Eat it with your protein for maximum effect.
+Foods to focus on: red peppers, kiwi, strawberries, broccoli, citrus
+
+Priority 3 — Omega-3 Fatty Acids
+Your skin barrier and your glow depend on healthy fats. Oily fish twice a week is the goal.
+Foods to focus on: salmon, mackerel, sardines, walnuts, flaxseed
+
+8. YOUR HERO FOODS
+
+HERO_FOOD: Salmon | Omega-3s for your barrier, protein for your collagen — a true skin superfood
+HERO_FOOD: Red peppers | The highest vitamin C of any food — eat them raw for maximum benefit
+HERO_FOOD: Eggs | Complete protein with skin-supporting zinc and biotin
+HERO_FOOD: Spinach | Antioxidants that protect existing collagen — add it to everything
+HERO_FOOD: Blueberries | Some of the highest antioxidant content of any fruit — frozen counts just as much
+
+9. YOUR LIFESTYLE FLAGS
+
+Sleep is where your skin does its repair work. Even one extra hour makes a measurable difference to how your skin looks and feels.
+
+Stress raises cortisol, which breaks down collagen and disrupts your skin barrier. Even 10 minutes of something calming each day adds up over time.
+
+10. YOUR SUPPLEMENTS PICTURE
+
+Vitamin D is worth taking — most of us in the UK are deficient and it affects skin repair. Omega-3 fish oil has solid evidence for skin barrier support. Magnesium is worth considering if sleep is an issue.
+
+On collagen powder — food-based collagen support is where the real magic happens. Protein, vitamin C, zinc, copper — your powder can support the process, but food is the foundation.
+
+11. YOUR NEXT STEPS
+
+1. Start wearing SPF 50 every single morning without exception — the most impactful daily habit for your skin
+2. Add a protein source to every meal this week — small changes here show on your skin within weeks
+3. Introduce a retinoid into your evening routine twice a week — start low, go slow, be patient
+
+12. YOUR ASK COYLAH HANDOVER
+
+Everything above — your skin picture, your routine, your food priorities, your lifestyle flags, your next steps — has all been shared with Ask Coylah. She's read every word. When you open her, she'll know exactly who you are and where to start. No repeating yourself. Just your personal collagen coach, ready and waiting.`;
+    renderResults(mockText,name);
+  }
+}
+
+function renderResults(text,name){
+  const rc=document.getElementById('res-content');
+  const secRx=/(?:^|\n)(\d+)\.\s+([A-Z][A-Za-z\s&'\-\/]+?)(?:\n|$)/g;
+  const matches=[];let m;
+  while((m=secRx.exec(text))!==null){if(m[2].trim().length<60)matches.push(m);}
+  const parts=[];
+  matches.forEach((match,i)=>{
+    const end=i+1<matches.length?matches[i+1].index:text.length;
+    const body=text.slice(match.index+match[0].length,end).trim();
+    if(!body)return;
+    parts.push({num:parseInt(match[1]),title:match[2].trim().toUpperCase(),body});
+  });
+
+  if(!parts.length){
+    rc.innerHTML=`<div class="acc"><div class="acc-head" onclick="tgl(this)"><span class="acc-title">Your Results</span><span class="acc-icon">+</span></div><div class="acc-body open">${text.replace(/\n/g,'<br>')}</div></div>`;
+    appendHandover(name,rc);
+    document.getElementById('print-btn').style.display='block';
+    return;
+  }
+
+  const ALWAYS_OPEN=[1,2,3];
+  let html='';
+
+  parts.forEach(p=>{
+    if(!p.body.trim())return;
+    if(p.num===1){
+      html+=`<div class="quick-win"><div class="quick-win-label">Your Quick Win</div><div class="quick-win-body">${p.body.replace(/\n/g,'<br>')}</div></div>`;
+    }else if(p.num===6){
+      html+=`<div class="section-divider">Your hero ingredients</div>${renderIngPills(p)}`;
+    }else if(p.num===7){
+      html+=`<div class="section-divider">Your collagen food priorities</div>${renderFoodPriorities(p)}`;
+    }else if(p.num===8){
+      html+=`<div class="section-divider">Your hero foods</div>${renderHeroFoods(p)}`;
+    }else if(p.num===12){
+      // handled by appendHandover
+    }else{
+      const open=ALWAYS_OPEN.includes(p.num);
+      html+=`<div class="acc"><div class="acc-head" onclick="tgl(this)"><span class="acc-title">${p.title}</span><span class="acc-icon">${open?'−':'+'}</span></div><div class="acc-body${open?' open':''}">${p.body.split('\n\n').filter(x=>x.trim()).map(para=>`<p>${para.replace(/\n/g,'<br>')}</p>`).join('')}</div></div>`;
+    }
+  });
+
+  rc.innerHTML=html;
+  appendHandover(name,rc);
+  document.getElementById('print-btn').style.display='block';
+}
+
+function renderIngPills(p){
+  const lines=p.body.split('\n').filter(l=>l.trim());
+  const pills=lines.filter(l=>/^INGREDIENT:/i.test(l)).map(l=>{
+    const rest=l.replace(/^INGREDIENT:\s*/i,'');
+    const pts=rest.split('|');
+    const nm=(pts[0]||'').trim();const why=(pts[1]||'').trim();
+    if(!nm)return'';
+    return`<div class="pill"><div class="pill-name">${nm}</div>${why?`<div class="pill-why">${why}</div>`:''}</div>`;
+  }).join('');
+  if(!pills)return`<p style="font-size:14px;color:var(--muted);line-height:1.7;">${p.body.replace(/\n/g,'<br>')}</p>`;
+  return`<div class="pill-grid">${pills}</div>`;
+}
+
+function renderFoodPriorities(p){
+  const lines=p.body.split('\n').filter(l=>l.trim());
+  let html='';let item=null;
+  lines.forEach(line=>{
+    const pm=line.match(/^Priority\s*(\d+)\s*[—\-]\s*(.+)/i);
+    if(pm){if(item)html+=buildPCard(item);item={num:pm[1],name:pm[2].trim(),detail:'',foods:[]};}
+    else if(item){
+      const fm=line.match(/^Foods to focus on:\s*(.+)/i);
+      if(fm)item.foods=fm[1].split(',').map(s=>s.trim());
+      else if(line.trim())item.detail+=(item.detail?' ':'')+line.trim();
+    }
+  });
+  if(item)html+=buildPCard(item);
+  if(!html)html=`<p style="font-size:14px;color:var(--muted);line-height:1.7;">${p.body.replace(/\n/g,'<br>')}</p>`;
+  return html;
+}
+function buildPCard(s){
+  const foods=s.foods.filter(Boolean).map(f=>`<span class="food-tag">${f}</span>`).join('');
+  return`<div class="priority-card"><div class="priority-num">Priority ${s.num}</div><div class="priority-name">${s.name}</div>${s.detail?`<div class="priority-detail">${s.detail}</div>`:''}<div>${foods}</div></div>`;
+}
+
+function renderHeroFoods(p){
+  const lines=p.body.split('\n').filter(l=>l.trim());
+  const intro=lines.find(l=>!/^HERO_FOOD/i.test(l)&&l.length>20);
+  const pills=lines.filter(l=>/^HERO_FOOD:/i.test(l)).map(l=>{
+    const rest=l.replace(/^HERO_FOOD:\s*/i,'');
+    const pts=rest.split('|');
+    const nm=(pts[0]||'').trim();const why=(pts[1]||'').trim();
+    if(!nm)return'';
+    return`<div class="pill"><div class="pill-name">${nm}</div>${why?`<div class="pill-why">${why}</div>`:''}</div>`;
+  }).join('');
+  return`<div>${intro?`<p style="font-size:13px;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:12px;">${intro}</p>`:''}<div class="pill-grid">${pills||p.body.replace(/\n/g,'<br>')}</div></div>`;
+}
+
+function appendHandover(name,rc){
+  const div=document.createElement('div');
+  div.className='handover';
+  div.innerHTML=`<div class="handover-tag">Ask Coylah</div>
+    <h2 class="handover-title">Coylah already knows everything about you.</h2>
+    <p class="handover-sub">Your skin picture, your routine gaps, your food priorities, your lifestyle flags, your next steps — all of it has been shared with Ask Coylah. Open her now and she'll know exactly who you are and where to start. No repeating yourself. Just your personal collagen coach, ready and waiting.</p>
+    <button class="handover-btn" onclick="openCoylah()">Open Ask Coylah — she's ready for you →</button>
+    <p class="handover-note">Your full results have been shared with Coylah. Just start talking.</p>`;
+  rc.appendChild(div);
+}
+
+function openCoylah(){
+  const ctx=buildCtx();
+  sessionStorage.setItem('coylah_context',ctx);
+  alert('Your results have been saved. Open Ask Coylah to continue — she\'s ready for you.');
+}
+
+function buildCtx(){
+  const f=v=>{if(!v)return'not provided';if(Array.isArray(v))return v.length?v.join(', '):'none';return v;};
+  const a=A;
+  return`CONTEXT — Age Slow Glow Method™ for ${a._name||'client'}, aged ${a._age||'unknown'}
+SKIN: ${f(a.skin_concerns)} | Type: ${f(a.skin_type)} | Mirror: ${a.mirror||'not provided'}
+ROUTINE: AM: ${a.routine_am||'not provided'} | PM: ${a.routine_pm||'not provided'} | SPF: ${f(a.spf)} | Retinoid: ${f(a.retinoid)} | Budget: ${f(a.routine_budget)}
+SENSITIVITIES: ${f(a.sensitivities)} | Using: ${f(a.actives_using)}
+FOOD: ${f(a.diet_type)} | Protein: ${f(a.protein_freq)} meals | Sources: ${f(a.protein_sources)}
+COLLAGEN: Vit C ${f(a.vit_c_freq)} | Oily fish: ${f(a.omega3_freq)} | Sugar: ${f(a.sugar_intake)} | Water: ${f(a.water_daily)}
+LIFESTYLE: Sleep: ${f(a.sleep)} | Stress: ${f(a.stress)} | Exercise: ${f(a.exercise)} | Energy: ${f(a.energy)}
+SUPPLEMENTS: ${f(a.supp_list)}
+HORMONES: ${f(a.meno)} | Gut: ${f(a.digestion)}
+BIGGEST WANT: ${f(a.biggest_want)}
+NOTES: ${a.final_note||'none'}
+
+You are Coylah. You have read all of this. You know this person. Do not ask them to repeat anything. Greet them warmly by name and tell them one specific thing you noticed. Then ask what's on their mind today.`;
+}
+
+function tgl(head){
+  const body=head.nextElementSibling;
+  const icon=head.querySelector('.acc-icon');
+  const open=body.classList.toggle('open');
+  icon.textContent=open?'−':'+';
+}
+</script>
+</body>
+</html>
